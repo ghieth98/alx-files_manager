@@ -4,6 +4,6 @@ import AppController from '../controllers/AppController';
 const router = Router();
 
 router.get('/status', AppController.getStatus);
-router.get('/status', AppController.getStats);
+router.get('/stats', AppController.getStats);
 
 export default router;
