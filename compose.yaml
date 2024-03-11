@@ -1,0 +1,40 @@
+services:
+  app:
+    container_name: nodejs
+    image: node
+    working_dir: /usr/src/app
+    volumes:
+      - .:/usr/src/app
+    environment:
+      NODE_ENV: development
+    command: npm run dev
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+      - redis
+
+  mongo:
+    container_name: mongoDB
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db:rw
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+
+  redis:
+    container_name: redisDB
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - "./data/redis:/data:rw"
+
+volumes:
+  mongo-data:
