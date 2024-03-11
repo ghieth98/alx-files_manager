@@ -2,11 +2,10 @@ const { MongoClient } = require('mongodb');
 
 class DBClient {
   constructor() {
-    const host = 'localhost';
-    const port = 27017;
-    const database = 'files_manager';
+    const host = process.env.DB_HOST || 'localhost';
+    const port = +(process.env.DB_PORT) || 27017;
+    const database = process.env.DB_DATABASE || 'files_manager';
     const uri = `mongodb://${host}:${port}/${database}`;
-
     this.client = new MongoClient(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -14,10 +13,11 @@ class DBClient {
 
     this.client.connect((err) => {
       if (!err) {
-        // console.log('connected to mongoDB Database');
+        console.log('connected to MongoDB Database');
         this.dbAlive = true;
       } else {
-        console.error(err.message);
+        console.error('Error connecting to MongoDB:', err.message);
+        console.log('URI:', uri);
         this.dbAlive = false;
       }
     });
