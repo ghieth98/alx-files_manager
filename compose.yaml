@@ -23,9 +23,6 @@ services:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db:rw
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      ALLLOW_EMPTY_PASSWORD: 1
 
   redis:
     container_name: redisDB
