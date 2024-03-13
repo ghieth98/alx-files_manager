@@ -16,7 +16,7 @@ class UsersController {
     }
 
     const users = dbClient.db.collection('users');
-    await users.findOne({ email }, (result) => {
+    await users.findOne({ email }, (err, result) => {
       if (result) {
         res.status(400).json({ error: 'Already exist' });
       } else {
@@ -38,7 +38,7 @@ class UsersController {
     }
     const users = dbClient.db.collection('users');
     const objectId = new ObjectID(userId);
-    await users.findOne({ _id: objectId }, (result) => {
+    await users.findOne({ _id: objectId }, (err, result) => {
       if (!result) {
         res.status(401).json({ error: 'Unauthorized' });
         return;
